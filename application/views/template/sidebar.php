@@ -53,7 +53,7 @@
                   </ul>
                 </li>                
                 
-                
+                <li><a href="auth/create_user"><i class="fa fa-user"></i> User </a></li>
                 
               </ul>
             </div>
