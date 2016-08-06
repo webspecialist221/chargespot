@@ -473,7 +473,7 @@ class Ion_auth
 	{
 		$this->ion_auth_model->trigger_events('is_admin');
 
-		$admin_group = $this->config->item('admin_group', 'ion_auth');
+		$admin_group = $this->config->item('super_group', 'ion_auth');
 
 		return $this->in_group($admin_group, $id);
 	}
@@ -483,6 +483,15 @@ class Ion_auth
 		$this->ion_auth_model->trigger_events('super_admin');
 
 		$admin_group = $this->config->item('admin_group', 'ion_auth');
+
+		return $this->in_group($admin_group, $id);
+	}
+
+	public function is_shopkeeper($id=false)
+	{
+		$this->ion_auth_model->trigger_events('shoopkeeper');
+
+		$admin_group = $this->config->item('shopkeeper_group', 'ion_auth');
 
 		return $this->in_group($admin_group, $id);
 	}

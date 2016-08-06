@@ -48,12 +48,23 @@
 
                 <li><a><i class="fa fa-home"></i> Device <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="Devices">Manage Device</a>
+                    <li><a href="index.html">Add Device</a>
+                    </li>
+                    <li><a href="index2.html">Manage Device</a>
                     </li>
                   </ul>
                 </li>                
                 
-                <li><a href="auth/create_user"><i class="fa fa-user"></i> User </a></li>
+                <?php if(!$this->ion_auth->is_shopkeeper()){ ?>
+                <li><a><i class="fa fa-user"></i> User <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="auth/create_user">Add User</a>
+                    </li>
+                    <li><a href="index2.html">Manage Device</a>
+                    </li>
+                  </ul>
+                </li>
+                <?php } ?>
                 
               </ul>
             </div>
