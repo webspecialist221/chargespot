@@ -7,8 +7,8 @@ class Common_model extends CI_Model {
 		return $query->result_array();
 	}
 
-	public function record($table, $id) {
-		$this->db->where($id);
+	public function record($table, $where) {
+		$this->db->where($where);
 		$query = $this->db->get($table);
 		return $query->row_array();
 	}
@@ -21,13 +21,14 @@ class Common_model extends CI_Model {
 
 	public function update($table, $data, $id) {
 		$this->db->where($id);
-		$query=$this->db->update($table,$data);
+	   $query=$this->db->update($table,$data);
 		$result=($query) ? true : false;
 		return $result;
 	}
 
-	public function delete($table, $id) {
-		$this->db->where($id);
+	public function delete($table,$where = '') {
+		if(!empty($where))
+		$this->db->where($where);
 		$query=$this->db->delete($table);
 		$result=($query) ? true : false;
 		return $result;

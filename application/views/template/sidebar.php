@@ -48,9 +48,7 @@
 
                 <li><a><i class="fa fa-home"></i> Device <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="index.html">Add Device</a>
-                    </li>
-                    <li><a href="index2.html">Manage Device</a>
+                    <li><a href="Devices">Manage Device</a>
                     </li>
                   </ul>
                 </li>                
