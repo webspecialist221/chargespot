@@ -95,10 +95,18 @@
           </div>
 
         <div class="form-group">
-            <?php echo form_label('Name','name',['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+            <?php echo form_label('First Name','first_name',['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <?php echo form_input('name',null,['id'=>'name','class'=>'form-control col-md-7 col-xs-12','required'=>'required']); ?>
-              <div style="color:red;"><?php echo form_error('name'); ?></div>
+              <?php echo form_input('first_name',null,['id'=>'first_name','class'=>'form-control col-md-7 col-xs-12','required'=>'required']); ?>
+              <div style="color:red;"><?php echo form_error('first_name'); ?></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo form_label('Last Name','last_name',['class'=>'control-label col-md-3 col-sm-3 col-xs-12']); ?>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <?php echo form_input('last_name',null,['id'=>'last_name','class'=>'form-control col-md-7 col-xs-12','required'=>'required']); ?>
+              <div style="color:red;"><?php echo form_error('last_name'); ?></div>
           </div>
         </div>
 
