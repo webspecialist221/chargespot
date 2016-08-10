@@ -22,7 +22,7 @@
       <div>
       <!-- href="<?php echo base_url('Devices/Add'); ?>" -->
 
-        <a id="btnAdd"  title="Add New Device" class="btn btn-primary">Add New Device</a>
+        <a id="btnAdd"  title="Assign Device" class="btn btn-primary">Assign Device</a>
       </div>
         <div class="">
           <div class="clearfix"></div>
@@ -46,16 +46,16 @@
                     <thead>
                       <tr>
                         <th>Device ID</th>
-                        <th>Created at</th>
+                        <th>Shop</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php foreach ($data as $key) {?>
-                        <tr><td><?php echo $key['device_id'];?></td><td><?php echo $key['created_at'];?></td>
+                        <tr><td><?php echo $key['device_id'];?></td><td><?php echo $key['name'];?></td>
                         <td >
                        <?php //echo base_url('Devices/Edit/'.$key['id']);?>
-                        <a value="<?php echo $key['id']; ?>" title="Edit" class="Edit btn btn-warning" >Edit</a> <a class="btn btn-danger" onclick="return confirm('Are you sure?');" href="<?php echo base_url('Devices/Delete/'.$key['id']);?>">Delete</a>
+                        <a value="<?php echo $key['device_shop_id']; ?>" title="Edit" class="Edit btn btn-warning" >Edit</a> <a class="btn btn-danger" onclick="return confirm('Are you sure?');" href="<?php echo base_url('Device_Shop/Delete/'.$key['device_shop_id']);?>">Delete</a>
                         </td></tr>
                       <?php } ?>
                     </tbody>
@@ -73,13 +73,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="formid">Add Device</h4>
+        <h4 class="modal-title" id="formid">Assign Device to Shop</h4>
       </div>
       <div class="modal-body">
       <div class="" role="main">
         <div class="">
 
-          <form  action="Devices/ManageRec" method="POST"  data-parsley-validate class="form-horizontal form-label-left">
+          <form  action="Device_Shop/ManageRec" method="POST"  data-parsley-validate class="form-horizontal form-label-left">
                   
           <div class="clearfix"></div>
           <div class="row">
@@ -89,13 +89,29 @@
                   <br />
                     <input name="recId" type="hidden" value="<?php if(isset($id)){ echo $id; }?>">
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Device ID <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Shop<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="txtDeviceId" id="txtDeviceId" required class="form-control col-md-7 col-xs-12">
+                       <select name="ddShop" class="form-control" required>
+                       <option value="">Select Shop</option>
+                       <?php foreach ($shops as $key) { ?>
+                         <option value='<?php echo $key["shop_id"]; ?>'><?php echo $key["name"]; ?></option>
+                       <?php } ?>
+                       </select>
                       </div>
                     </div>
-                  
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Device<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                       <select name="ddDevice" class="form-control" required>
+                       <option value="">Select Device</option>
+                       <?php foreach ($devices as $key) { ?>
+                         <option value='<?php echo $key["id"]; ?>'><?php echo $key["device_id"]; ?></option>
+                       <?php } ?>
+                       </select>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -160,25 +176,27 @@
         <script type="text/javascript">
           $(document).ready(function() {
             $(".Edit").on('click',function(){
-              $("#formid").empty().text("Update Device");
+              $("#formid").empty().text("Assign Device");
               var id=$(this).attr('value');
               $.ajax({
-                url:'<?php echo base_url("Devices/Edit") ?>',
+                url:'<?php echo base_url("Device_Shop/Edit") ?>',
                 type:"GET",
                 datatype:'JSON',
                 data:{recid:id},
                 success:function(data){
                   console.log(data);
                   var record=JSON.parse(data);
-                  $("[name='recId']").val(record.id);
-                  $("#txtDeviceId").val(record.device_id);
+                  $("[name='recId']").val(record.device_shop_id);
+                  $("[name='ddDevice']").val(record.id);
+                  $("[name='ddShop']").val(record.shops_id);
                   $("#form").modal();
                 }
               });
             });
             $('#btnAdd').on('click', function () {
-               $("#formid").empty().text("Add Device");
-               $("#txtDeviceId").val('');
+               $("#formid").empty().text("Assign Device");
+               $("#ddDevice").val('');
+               $("#ddShop").val('');
                $("#recId").val('');
             $('#form').modal()
              });

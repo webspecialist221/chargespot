@@ -48,7 +48,7 @@
            <?php echo form_open("auth/login"); ?>
             <h1>Login Form</h1>
             <div>
-              <?php echo form_input($email,'',['class'=>'form-control','placeholder'=>'Email']); ?>
+              <?php echo form_input($identity,'',['class'=>'form-control','placeholder'=>'Email']); ?>
             </div>
             <div>
               <?php echo form_input($password,'',['class'=>'form-control','placeholder'=>'Password']); ?>
