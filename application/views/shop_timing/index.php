@@ -22,7 +22,7 @@
       <div>
       <!-- href="<?php echo base_url('Devices/Add'); ?>" -->
 
-        <a id="btnAdd"  title="Add New Device" class="btn btn-primary">Add New Device</a>
+        <a id="btnAdd" title="Add New Device" class="btn btn-primary">Add Shop Timing</a>
       </div>
         <div class="">
           <div class="clearfix"></div>
@@ -45,18 +45,26 @@
                   <table id="datatable" class="table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th>Device ID</th>
-                        <th>Created at</th>
-                        <th>Action</th>
+                        <th> Shitfting </th>
+                        <th> Starting Time </th>
+                        <th> Ending Tine</th>
+                        <th> Shop</th>
+                        <th> Action </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php foreach ($data as $key) {?>
-                        <tr><td><?php echo $key['device_id'];?></td><td><?php echo $key['created_at'];?></td>
-                        <td >
+
+                      <?php foreach ($select as $key) {?>
+                        <tr><td><?php echo $key['shift'];?></td>
+                        <td><?php echo $key['start_time'];?></td>
+                        <td><?php echo $key['end_time'];?></td>
+                        <td><?php echo $key['name'];?></td>
+                        <td>
                        <?php //echo base_url('Devices/Edit/'.$key['id']);?>
-                        <a value="<?php echo $key['id']; ?>" title="Edit" class="Edit btn btn-warning" >Edit</a> <a class="btn btn-danger" onclick="return confirm('Are you sure?');" href="<?php echo base_url('Devices/Delete/'.$key['id']);?>">Delete</a>
-                        </td></tr>
+                        <a value="<?php echo $key['id']; ?>" title="Edit" class="Edit btn btn-warning">Edit</a> 
+                        <a class="btn btn-danger" onclick="return confirm('Are you sure?');" href="<?php echo base_url('Shop_timing/Delete/'.$key['id']);?>">Delete</a>
+                        </td>
+                        </tr>
                       <?php } ?>
                     </tbody>
                   </table>
@@ -73,13 +81,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="formid">Add Device</h4>
+        <h4 class="modal-title" id="formid">Add Shop timing</h4>
       </div>
       <div class="modal-body">
       <div class="" role="main">
         <div class="">
 
-          <form  action="Devices/ManageRec" method="POST"  data-parsley-validate class="form-horizontal form-label-left">
+          <form  action="Shop_timing/ManageRec" method="POST"  data-parsley-validate class="form-horizontal form-label-left">
                   
           <div class="clearfix"></div>
           <div class="row">
@@ -89,13 +97,45 @@
                   <br />
                     <input name="recId" type="hidden" value="<?php if(isset($id)){ echo $id; }?>">
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Device ID <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Shift Time <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="txtDeviceId" id="txtDeviceId" required class="form-control col-md-7 col-xs-12">
+                      <select class="form-control" name="shift" id="shift">
+                        <option value=""> Select Shifting </option>
+                        <option> Morning  </option>
+                        <option> Evening  </option>
+                        <option> Night    </option>
+                      </select>
                       </div>
                     </div>
-                  
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Start Time <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" name="start_time" id="start_time" required class="form-control col-md-7 col-xs-12 time start">
+                      </div>
+
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> End Time <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" name="end_time" id="end_time" required class="form-control col-md-7 col-xs-12 time end">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Shop <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <select class="form-control" name="shop" id="shop">
+                      <option value=""> Selcet Shop </option>
+                      <?php foreach ($shop as  $value) { 
+                         ?>
+                     <option value="<?php echo $value->shop_id?>"><?php echo $value->name ?></option>
+                     <?php  } ?>
+                      </select>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -160,10 +200,9 @@
         <script type="text/javascript">
           $(document).ready(function() {
             $(".Edit").on('click',function(){
-              $("#formid").empty().text("Update Device");
               var id=$(this).attr('value');
               $.ajax({
-                url:'<?php echo base_url("Devices/Edit") ?>',
+                url:'<?php echo base_url("Shop_timing/Edit") ?>',
                 type:"GET",
                 datatype:'JSON',
                 data:{recid:id},
@@ -171,15 +210,24 @@
                   console.log(data);
                   var record=JSON.parse(data);
                   $("[name='recId']").val(record.id);
-                  $("#txtDeviceId").val(record.device_id);
+                  $("#shift").val(record.shift);
+                  $("#start_time").val(record.start_time);
+                  $("#end_time").val(record.end_time);
+                  $("#shop").val(record.shops_id);
                   $("#form").modal();
                 }
               });
             });
+
+
+           
+
+
             $('#btnAdd').on('click', function () {
-               $("#formid").empty().text("Add Device");
-               $("#txtDeviceId").val('');
-               $("#recId").val('');
+              $("[name='recId']").val('');
+              $("#start_time").val('');
+              $('#end_time').val('');
+              $('#shop').val('');
             $('#form').modal()
              });
             $('#datatable').dataTable();
