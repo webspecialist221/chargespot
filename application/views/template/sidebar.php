@@ -46,9 +46,7 @@
 
                 <li><a><i class="fa fa-home"></i> Device <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="index.html">Add Device</a>
-                    </li>
-                    <li><a href="index2.html">Manage Device</a>
+                    <li><a href="devices">Manage Device</a>
                     </li>
                   </ul>
                 </li> 
@@ -71,12 +69,12 @@
                 </li>
                 <?php } ?>
 
-                <li><a><i class="fa fa-home"></i> City<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
+                <!-- <li><a><i class="fa fa-home"></i> City<span class="fa fa-chevron-down"></span></a> -->
+                <!--   <ul class="nav child_menu" style="display: none">
                     <li><a href="City">Manage City</a>
                     </li>
                   </ul>
-                </li> 
+                </li> --> 
                  <li><a><i class="fa fa-home"></i>Shops and Users<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="Shop_user">Manage Shops and Users</a>
