@@ -39,9 +39,7 @@
 
                 <li><a><i class="fa fa-home"></i> Shop <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="index.html">Add Shop</a>
-                    </li>
-                    <li><a href="index2.html">Manage Shop</a>
+                    <li><a href="Shops">Manage Shop</a>
                     </li>
                   </ul>
                 </li>
@@ -53,7 +51,14 @@
                     <li><a href="index2.html">Manage Device</a>
                     </li>
                   </ul>
+                </li> 
+                <li><a><i class="fa fa-home"></i> Devices and Shops<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="Device_Shop">Manage Shops and Devices</a>
+                    </li>
+                  </ul>
                 </li>                
+
                 
                 <?php if(!$this->ion_auth->is_shopkeeper()){ ?>
                 <li><a><i class="fa fa-user"></i> User <span class="fa fa-chevron-down"></span></a>
@@ -65,7 +70,19 @@
                   </ul>
                 </li>
                 <?php } ?>
-                
+
+                <li><a><i class="fa fa-home"></i> City<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="City">Manage City</a>
+                    </li>
+                  </ul>
+                </li> 
+                 <li><a><i class="fa fa-home"></i>Shops and Users<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="Shop_user">Manage Shops and Users</a>
+                    </li>
+                  </ul>
+                </li> 
               </ul>
             </div>
             

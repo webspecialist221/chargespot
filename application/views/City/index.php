@@ -22,7 +22,7 @@
       <div>
       <!-- href="<?php echo base_url('Devices/Add'); ?>" -->
 
-        <a id="btnAdd"  title="Add New Device" class="btn btn-primary">Add New Device</a>
+        <a id="btnAdd"  title="Add New Device" class="btn btn-primary">Add New City</a>
       </div>
         <div class="">
           <div class="clearfix"></div>
@@ -32,7 +32,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Devices</h2>
+                  <h2>City</h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -45,17 +45,19 @@
                   <table id="datatable" class="table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th>Device ID</th>
-                        <th>Created at</th>
+                        
+                        <th>Country</th>
+                        <th>City</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php foreach ($data as $key) {?>
-                        <tr><td><?php echo $key['device_id'];?></td><td><?php echo $key['created_at'];?></td>
+                        <tr><td><?php echo $key['country_name'];?></td>
+                        <td><?php echo $key['cityName'];?></td>
                         <td >
                        <?php //echo base_url('Devices/Edit/'.$key['id']);?>
-                        <a value="<?php echo $key['id']; ?>" title="Edit" class="Edit btn btn-warning" >Edit</a> <a class="btn btn-danger" onclick="return confirm('Are you sure?');" href="<?php echo base_url('Devices/Delete/'.$key['id']);?>">Delete</a>
+                        <a value="<?php echo $key['id']; ?>" title="Edit" class="Edit btn btn-warning" >Edit</a> <a class="btn btn-danger" onclick="return confirm('Are you sure?');" href="<?php echo base_url('City/Delete/'.$key['id']);?>">Delete</a>
                         </td></tr>
                       <?php } ?>
                     </tbody>
@@ -73,13 +75,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="formid">Add Device</h4>
+        <h4 class="modal-title" id="formid">Add City</h4>
       </div>
       <div class="modal-body">
       <div class="" role="main">
         <div class="">
-
-          <form  action="Devices/ManageRec" method="POST"  data-parsley-validate class="form-horizontal form-label-left">
+           <?php echo form_open('City/ManageRec',['class'=>'form-horizontal form-label-left']); ?>
+          
+         <!--  <form  action="Devices/ManageRec" method="POST"  data-parsley-validate class="form-horizontal form-label-left"> -->
                   
           <div class="clearfix"></div>
           <div class="row">
@@ -89,10 +92,25 @@
                   <br />
                     <input name="recId" type="hidden" value="<?php if(isset($id)){ echo $id; }?>">
                     <div class="form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Device ID <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Country <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="txtDeviceId" id="txtDeviceId" required class="form-control col-md-7 col-xs-12">
+                       <?php 
+                       $option['select']='Select Country';
+                        foreach ($country as $value) {
+                             $option[$value->country_id] =$value->country_name;
+                        
+                           }  ?>
+
+                     <?php  echo form_dropdown('country', $option,'',['id'=>'country','required class'=>'form-control col-md-7 col-xs-12']);  ?>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Ciry <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                      <?= form_input(['name'=>'city','id'=>'city','required class'=>'form-control col-md-7 col-xs-12']); ?>
+                       
                       </div>
                     </div>
                   
@@ -102,9 +120,9 @@
           </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-primary" value="Save changes">
+        <input type="submit" name="submit" class="btn btn-primary" value="Save changes">
       </div>
-      </form>
+      <?= form_close(); ?>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -160,10 +178,10 @@
         <script type="text/javascript">
           $(document).ready(function() {
             $(".Edit").on('click',function(){
-              $("#formid").empty().text("Update Device");
+                $('#formid').text('Update City');
               var id=$(this).attr('value');
               $.ajax({
-                url:'<?php echo base_url("Devices/Edit") ?>',
+                url:'<?php echo base_url("City/Edit") ?>',
                 type:"GET",
                 datatype:'JSON',
                 data:{recid:id},
@@ -171,16 +189,16 @@
                   console.log(data);
                   var record=JSON.parse(data);
                   $("[name='recId']").val(record.id);
-                  $("#txtDeviceId").val(record.device_id);
+                  $("#country").val(record.country_id);
+                  $("#city").val(record.cityName);
                   $("#form").modal();
                 }
               });
             });
             $('#btnAdd').on('click', function () {
-               $("#formid").empty().text("Add Device");
-               $("#txtDeviceId").val('');
-               $("#recId").val('');
-            $('#form').modal()
+              $('#formid').text('Add City');
+              $("#recId").val('');
+            $('#form').modal();
              });
             $('#datatable').dataTable();
             $('#datatable-keytable').DataTable({

@@ -18,7 +18,11 @@ class Devices extends CI_Controller
 	}
 	function ManageRec()
 	{
-       $rid=$this->input->post('recId');
+    $valid=$this->form_validation->run('Devices_form_rules');
+
+     if($valid ==true)
+     {
+      $rid=$this->input->post('recId');
       if(!empty($rid))
       {
          $data = array('device_id' =>$this->input->post('txtDeviceId'));
@@ -41,7 +45,14 @@ class Devices extends CI_Controller
       	$this->session->set_flashdata('er','An Error occure!');	
       	}
       }
-      redirect('Devices');
+       redirect('Devices');
+    }
+
+    else{
+      $res['data']=$this->cm->lists('devices');
+      $this->load->view('Devices/index',$res);
+    }
+     
 	}
 	function Edit()
 	{
