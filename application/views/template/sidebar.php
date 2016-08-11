@@ -13,7 +13,12 @@
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2>John Doe</h2>
+              <h2>
+                <?php 
+                    $user = $this->ion_auth->user()->row();
+                    echo $user->first_name." ".$user->last_name;
+                ?>
+               </h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
