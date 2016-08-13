@@ -288,6 +288,7 @@
                   $("#txtCountry").val('');
                   $("#txtPostal").val('');
                   $("#txtPhone").val('');
+                  $("#form").modal();
             });
 
             $(".Edit").on('click',function(){
