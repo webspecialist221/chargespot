@@ -101,6 +101,13 @@ $config = [
   'rules' => 'required'
 
     ]
+  ],
+  'Booking_Request_validation' => [[
+
+  'field' => 'ddlDeviceId',
+  'label' => 'Device ID',
+  'rules' => 'required'
+  ]
   ]
 ];
 

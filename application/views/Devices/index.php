@@ -108,6 +108,9 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+</div>
+</div>
+</div>
 <!-- End of model -->
       <!-- footer content -->
         <script src="assets/js/datatables/jquery.dataTables.min.js"></script>
