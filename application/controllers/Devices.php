@@ -37,6 +37,13 @@ class Devices extends CI_Controller
       }
       else{
       	$data = array('device_id' =>$this->input->post('txtDeviceId'));
+        $res=$this->cm->record("devices",$data);
+        if(count($res)>0)
+        {
+         $this->session->set_flashdata('er','Device with this ID is already exist! Try another one.');
+        }
+        else
+        {
       	$res=$this->cm->insert('devices',$data);
       	if($res==true){
       		$this->session->set_flashdata('success','Successfully saved!');
@@ -44,6 +51,7 @@ class Devices extends CI_Controller
       	else{
       	$this->session->set_flashdata('er','An Error occure!');	
       	}
+      }
       }
        redirect('Devices');
     }

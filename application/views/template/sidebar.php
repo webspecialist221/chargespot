@@ -32,6 +32,12 @@
               <h3>General</h3>
               <ul class="nav side-menu">
                 <li><a href="main"><i class="fa fa-home"></i>Home</a></li>
+                <li><a><i class="fa fa-home"></i> Booking Requests <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="Booking_Request">Manage Requests</a>
+                    </li>
+                  </ul>
+                </li>
 
                 <li><a><i class="fa fa-home"></i> Shop <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
